@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-amapBj-plugin" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-amapBj-plugin</name>
+    <js-module name="camap" src="www/cordova-amapBj-plugin.js">
+        <clobbers target="camap" />
+    </js-module>
+	<!--添加Android平台  -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">  
+            <!-- JS调用时的名字 -->
+            <feature name="CustomAmap">  
+                <!-- value：的值是对应的插件中ToastDemo.java存放的路径 --> 
+                <param name="android-package" value="com.zyb.amap.AmapLocation"/>
+            </feature>  
+        </config-file>  
+        <!-- src:是插件里存放对应.java的路径， target-dir:安装插件时把.java文件存放的位置，要和上面的value路径对应 -->
+        <source-file src="src/android/amap/AmapLocation.java" target-dir="src/com/zyb/amap" />
+		<source-file src="src/android/amap/AmapLocationService.java" target-dir="src/com/zyb/amap"/> 
+		<source-file src="src/android/amap/LocationModel.java" target-dir="src/com/zyb/amap"/> 
+		<source-file src="src/android/libs/AMap_Location_V4.2.0_20180809.jar" target-dir="libs"/>  
+		<source-file src="src/android/libs/AMap_Search_V6.5.0_20180930.jar" target-dir="libs"/>  
+		<source-file src="src/android/libs/Android_Map3D_SDK_V6.8.0_20190401.jar" target-dir="libs"/>  
+    </platform> 
+</plugin>
