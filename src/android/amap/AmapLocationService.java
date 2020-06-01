@@ -61,6 +61,7 @@ public class AmapLocationService extends Service {
                     location.setLatitude(aMapLocation.getLatitude());
                     location.setAccuracy(aMapLocation.getAccuracy());
                     location.setTime(dateFormat19.format(date));
+                    location.setTimestamp(aMapLocation.getTime());
                    // }
                     AmapLocation.returnLocation(location);
                 } else {

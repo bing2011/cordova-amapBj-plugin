@@ -6,6 +6,7 @@ public class LocationModel {
     private Double longitude = 0.0D;
     private float accuracy;
     private String time;
+    private Long timestamp;
 
     public Double getLatitude() {
         return latitude;
@@ -37,5 +38,13 @@ public class LocationModel {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 }
