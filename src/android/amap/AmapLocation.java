@@ -3,6 +3,8 @@ package com.zyb.amap;
 import android.Manifest;
 import android.util.Log;
 
+import com.amap.api.location.AMapLocation;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -62,8 +64,6 @@ public class AmapLocation extends CordovaPlugin {
             json.put("longitude",location.getLongitude());
             json.put("latitude",location.getLatitude());
             json.put("accuracy",location.getAccuracy());
-            json.put("time",location.getTime());
-            json.put("timestamp",location.getTimestamp());
             json2.put("coords",json);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,6 +72,20 @@ public class AmapLocation extends CordovaPlugin {
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json2);
         pluginResult.setKeepCallback(true);
         cb.sendPluginResult(pluginResult);
+    }
+
+    public static void returnError(AMapLocation location){
+      JSONObject json = new JSONObject();
+      try {
+        json.put("status", "定位失败");
+        json.put("errcode", location.getErrorCode());
+        json.put("errinfo", location.getErrorInfo());
+        json.put("detail", location.getLocationDetail());
+        json.put("backtime", System.currentTimeMillis());
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      cb.error(json);
     }
 
     /**
