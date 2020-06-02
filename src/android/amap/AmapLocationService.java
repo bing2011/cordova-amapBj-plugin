@@ -69,13 +69,12 @@ public class AmapLocationService extends Service {
           location.setLatitude(aMapLocation.getLatitude());
           location.setAccuracy(aMapLocation.getAccuracy());
           location.setTime(dateFormat19.format(date));
+          location.setTimestamp(aMapLocation.getTime());
           // }
           AmapLocation.returnLocation(location);
         } else {
           //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
           String message = "location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo();
-          //日志
-          Log.i("获取定位失败：", message + "\n  sHA1:" + sHA1(mcontext));
           errorNum++;
           if(errorNum>3){
             AmapLocation.returnError(aMapLocation);
@@ -84,32 +83,6 @@ public class AmapLocationService extends Service {
       }
     }
   };
-
-  public String sHA1(Context context) {
-    try {
-      PackageInfo info = context.getPackageManager().getPackageInfo(
-        context.getPackageName(), PackageManager.GET_SIGNATURES);
-      byte[] cert = info.signatures[0].toByteArray();
-      MessageDigest md = MessageDigest.getInstance("SHA1");
-      byte[] publicKey = md.digest(cert);
-      StringBuffer hexString = new StringBuffer();
-      for (int i = 0; i < publicKey.length; i++) {
-        String appendString = Integer.toHexString(0xFF & publicKey[i])
-          .toUpperCase(Locale.US);
-        if (appendString.length() == 1)
-          hexString.append("0");
-        hexString.append(appendString);
-        hexString.append(":");
-      }
-      String result = hexString.toString();
-      return result.substring(0, result.length() - 1);
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
 
   public AmapLocationService(Context context) {
     this.mcontext = context;

@@ -64,6 +64,8 @@ public class AmapLocation extends CordovaPlugin {
             json.put("longitude",location.getLongitude());
             json.put("latitude",location.getLatitude());
             json.put("accuracy",location.getAccuracy());
+            json.put("time",location.getTime());
+            json.put("timestamp",location.getTimestamp());
             json2.put("coords",json);
         } catch (JSONException e) {
             e.printStackTrace();
